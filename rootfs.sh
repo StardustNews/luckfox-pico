@@ -28,14 +28,14 @@ rootfs_workspace_new
 # Create docker
 docker container rm -f armv7alpine || true
 docker run \
-echo "rootfs entries: $(ls -1 $ROOTFS_WORKSPACE_MNT | wc -l)" \
     --name armv7alpine \
     --net host \
     --mount type=bind,source=./bootstrap.sh,target=/bootstrap.sh \
     -v "$ROOTFS_WORKSPACE_MNT:/extrootfs" \
     arm32v7/alpine \
     /bootstrap.sh
-
+    
+echo "rootfs entries: $(ls -1 $ROOTFS_WORKSPACE_MNT | wc -l)"
 # Configuring rootfs and overlay
 overlay() {
   local OVERLAY_WORKSPACE="overlay-workspace"
