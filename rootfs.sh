@@ -28,6 +28,7 @@ rootfs_workspace_new
 # Create docker
 docker container rm -f armv7alpine || true
 docker run \
+    --platform linux/arm/v7 \
     --name armv7alpine \
     --net host \
     --mount type=bind,source=./bootstrap.sh,target=/bootstrap.sh \
