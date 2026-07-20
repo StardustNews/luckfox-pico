@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 OUTPUT_DIR="output"
 ROOTFS_FILE="rootfs-alpine.tar.gz"
 
@@ -7,7 +8,7 @@ ROOTFS_WORKSPACE_FILE="$ROOTFS_WORKSPACE_NAME.ext4"
 ROOTFS_WORKSPACE_MNT="/tmp/$ROOTFS_WORKSPACE_NAME/"
 
 rootfs_workspace_drop() {
-  umount -R "$ROOTFS_WORKSPACE_MNT"
+  umount -R "$ROOTFS_WORKSPACE_MNT" || true
   rm -rf "$ROOTFS_WORKSPACE_FILE" "$ROOTFS_WORKSPACE_MNT"
 }
 rootfs_workspace_new() {
@@ -22,11 +23,12 @@ rootfs_workspace_drop
 rootfs_workspace_new
 
 # Setting up multiarch support
-docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+# docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
 
 # Create docker
-docker container rm -f armv7alpine
+docker container rm -f armv7alpine || true
 docker run \
+echo "rootfs entries: $(ls -1 $ROOTFS_WORKSPACE_MNT | wc -l)" \
     --name armv7alpine \
     --net host \
     --mount type=bind,source=./bootstrap.sh,target=/bootstrap.sh \
