@@ -22,6 +22,7 @@ apk del -r shadow
 
 # Install SSH
 apk add openssh
+ssh-keygen -A
 rc-update add sshd default
 
 # Extra stuff
@@ -34,7 +35,13 @@ rm -rf /var/cache/apk/*
 
 # Packaging rootfs
 for d in bin etc lib sbin usr; do tar c "$d" | tar x -C /extrootfs; done
-for dir in dev proc root run sys var oem userdata; do mkdir /extrootfs/${dir}; done
-
-mkdir -p /extrootfs/var/empty
+for dir in dev proc root run sys oem userdata; do mkdir -p /extrootfs/${dir}; done
+find /var -type d -exec mkdir -p /extrootfs{} ;
+find /var -type l -exec cp -a {} /extrootfs{} ;
 chmod 700 /extrootfs/var/empty
+chmod 1777 /extrootfs/var/tmp
+
+echo "=== extrootfs /var ==="
+find /extrootfs/var -maxdepth 2 | sort
+echo "=== ownership check ==="
+ls -la /extrootfs/
