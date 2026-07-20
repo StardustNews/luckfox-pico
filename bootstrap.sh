@@ -1,5 +1,5 @@
 #!/bin/sh
-
+set -e
 # Install base
 apk update
 apk add openrc
@@ -16,7 +16,8 @@ apk add agetty
 apk add shadow
 apk add bash bash-completion
 chsh -s /bin/bash
-echo -e "luckfox\nluckfox" | passwd
+# echo -e "luckfox\nluckfox" | passwd
+echo "root:luckfox" | chpasswd
 apk del -r shadow
 
 # Install SSH
@@ -25,8 +26,8 @@ rc-update add sshd default
 
 # Extra stuff
 apk add mtd-utils-ubi
-apk add bottom
-apk add neofetch
+# apk add bottom
+# apk add neofetch
 
 # Clear apk cache
 rm -rf /var/cache/apk/*
