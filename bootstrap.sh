@@ -35,3 +35,6 @@ rm -rf /var/cache/apk/*
 # Packaging rootfs
 for d in bin etc lib sbin usr; do tar c "$d" | tar x -C /extrootfs; done
 for dir in dev proc root run sys var oem userdata; do mkdir /extrootfs/${dir}; done
+
+mkdir -p /extrootfs/var/empty
+chmod 700 /extrootfs/var/empty
