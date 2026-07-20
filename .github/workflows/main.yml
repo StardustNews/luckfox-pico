@@ -8,6 +8,8 @@ jobs:
   build-rootfs:
     runs-on: ubuntu-latest
     steps:
+      - name: set up qemu
+        uses: docker/setup-qemu-action@v3
       - name: checkout
         uses: actions/checkout@v4
       - name: build rootfs
