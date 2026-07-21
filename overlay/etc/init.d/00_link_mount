@@ -1,3 +1,11 @@
 #!/sbin/openrc-run
 
-command="/usr/bin/link_mount start || true"
+depend() {
+    before net
+}
+
+start() {
+    ebegin "Running link_mount"
+    /usr/bin/link_mount start
+    eend $?
+}
