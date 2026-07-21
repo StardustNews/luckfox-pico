@@ -33,6 +33,10 @@ apk add mtd-utils-ubi
 # NTP
 apk add chrony
 rc-update add chronyd default
+apk add tzdata
+cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+echo "Asia/Tokyo" > /etc/timezone
+apk del tzdata
 
 # Clear apk cache
 rm -rf /var/cache/apk/*
