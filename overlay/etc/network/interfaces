@@ -3,6 +3,7 @@ iface lo inet loopback
 auto eth0
 iface eth0 inet dhcp
     udhcpc_opts -t 1
+    pre-up ip link set dev eth0 address c2:32:7f:fe:b2:fc
 auto usb0
 iface usb0 inet static
     address 172.32.0.93
