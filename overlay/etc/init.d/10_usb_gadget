@@ -1,3 +1,12 @@
 #!/sbin/openrc-run
 
-command="/usr/bin/usb_gadget start || true"
+depend() {
+    after 00_link_mount
+    before net
+}
+
+start() {
+    ebegin "Running usb_gadget"
+    /usr/bin/usb_gadget start
+    eend $?
+}
