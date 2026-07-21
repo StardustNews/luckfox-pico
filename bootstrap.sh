@@ -30,6 +30,10 @@ apk add mtd-utils-ubi
 # apk add bottom
 # apk add neofetch
 
+# NTP
+apk add chrony
+rc-update add chronyd default
+
 # Clear apk cache
 rm -rf /var/cache/apk/*
 
