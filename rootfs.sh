@@ -52,6 +52,7 @@ overlay() {
 
   rsync -a "$OVERLAY_WORKSPACE/" "$ROOTFS_WORKSPACE_MNT/"
   chown -R root:root "$ROOTFS_WORKSPACE_MNT/"
+  chmod 755 "$ROOTFS_WORKSPACE_MNT"/etc/init.d/*
   rm -rf "$OVERLAY_WORKSPACE"
 
   echo "Include /etc/ssh/sshd_config.d/*.conf" >> \
